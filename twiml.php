@@ -1,5 +1,7 @@
 <?php
 
+// TODO: call and say - http://stackoverflow.com/questions/26597496/twilio-say-verb-during-a-phone-call
+
 header('Content-type: text/xml');
 
 // put a phone number you've verified with Twilio to use as a caller ID number
@@ -24,8 +26,10 @@ if (preg_match("/^[\d\+\-\(\) ]+$/", $number)) {
 ?>
 
 <Response>
-    <Dial callerId="<?php echo $callerId ?>">
-          <?php echo $numberOrClient ?>
+    <Dial callerId="<?php echo $callerId ?>" action="handleDialCallStatus.php" method="GET">
+          <Number url="say.xml">
+          	<?php echo $number ?>
+        </Number>
     </Dial>
     <Say>Hello, how are you? I would like to order 3 menus.</Say>
 </Response>
